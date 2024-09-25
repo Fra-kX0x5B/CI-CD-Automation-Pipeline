@@ -59,7 +59,7 @@ jobs:
       - name: Deploy to Docker host
         run: |
           IMAGE="${{ vars.DOCKERHUB_USERNAME }}/ci-cd-automation-pipeline:latest"
-          ssh -i ~/.ssh/id_rsa root@104.248.40.238 "docker stop ci-cd-automation-pipeline && \
+          ssh -i ~/.ssh/id_rsa root@104.248.40.238 "docker stop ci-cd-automation-pipeline || true && \
                                                     docker rm ci-cd-automation-pipeline || true && \
                                                     docker pull $IMAGE || true && \
                                                     docker run -d --name ci-cd-automation-pipeline -p 80:80 $IMAGE"
