@@ -37,7 +37,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ vars.DOCKERHUB_USERNAME }}/CI-CD-Project:latest
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/ci-cd-project:latest
           context: Automazione_CICD_Docker
           file: Automazione_CICD_Docker/Dockerfile
 
