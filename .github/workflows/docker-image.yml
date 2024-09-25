@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Pipeline CI-CD
 
 on:
   push:
@@ -37,7 +37,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ vars.DOCKERHUB_USERNAME }}/clockbox:latest
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/CI-CD-Project:latest
           context: Automazione_CICD_Docker
           file: Automazione_CICD_Docker/Dockerfile
 
