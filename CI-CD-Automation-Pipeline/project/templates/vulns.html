@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerabilities Carousel</title>
+    <!-- MainCSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div id="vulnerabilitiesCarousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        <!-- XSS Slide -->
+        <div class="carousel-item active">
+            <div class="d-block w-100">
+                <h1 style="font-size: 36px;"><strong>Cross-Site Scripting (XSS)</strong></h1>
+                <p>XSS allows attackers to inject scripts into web pages viewed by other users.</p>
+                <p><strong>Example:</strong></p>
+                <p>Copy and paste the following in the input box below:</p> 
+                <p style="font-size: 14px;">Tip: Change 'XSS Attack' to display whtever you want!</p> 
+                <p><code style="color: rgb(4, 1, 8);">&lt;script&gt;alert('XSS Attack')&lt;/script&gt;</code></p>
+                <div>
+                    <p><label for="userInput">Enter your input:</label></p>
+                    <p><input type="text" style="font-size: 18px;" id="userInput" placeholder="Try XSS here...";></p>
+
+                  <!-- Submit Button -->
+                  <button class="button is-block is-info is-large is-fullwidth" style="background-color: #504002" onclick="simulateXSS()">Submit</button>                  
+                </div>
+                <div id="output"></div>
+            </div>
+        </div>
+
+        <!-- SQLi Slide -->
+        <div class="carousel-item">
+            <div class="d-block w-100">
+                <h1 style="font-size: 36px;"><strong>SQL Injection</strong></h1>
+                <p>SQL Injection allows attackers to manipulate SQL queries by injecting malicious code.</p>
+                <p><strong>Example:</strong></p>
+                <p>Input one of the following to see how if can bypass authentication.</p>
+                <p><code style="color: rgb(2, 7, 0);">'</code></p>
+                <p><code style="color: rgb(2, 7, 0);">admin' --</code></p>
+                <p><code style="color: rgb(2, 7, 0);">' OR 1=1 --</code></p>
+                <p><code style="color: rgb(2, 7, 0);">' OR '1'='1' --</code></p> 
+                <div>
+                    <p><label for="sqlInput">Enter your input:</label></p>
+                    <p><input type="text" style="font-size: 18px;" id="sqlInput" placeholder="Try SQL Injection here..."></p>
+                  
+                  <!-- Submit Button -->
+                  <button class="button is-block is-info is-large is-fullwidth " style="background-color: #504002" onclick="simulateSQLInjection()">Submit</button>
+                </div>
+                <div id="sqlOutput"></div>
+            </div>
+        </div>
+        
+        <!-- Command Injection Slide -->
+        <div class="carousel-item">
+          <div class="d-block w-100">
+              <h1 style="font-size: 36px;"><strong>Command Injection</strong></h1>
+              <p>Command Injection allows attackers to execute arbitrary commands on the host operating system.</p>
+              <p><strong>Example:</strong></p>
+              <p>Try entering the following:</p>
+              <p><code style="color: rgb(2, 7, 0);">; ls</code></p>
+              <p><code style="color: rgb(2, 7, 0);">; whoami</code></p>
+              <p><code style="color: rgb(2, 7, 0);">; id</code></p>
+              <div>
+                  <p><label for="commandInput">Enter your command:</label></p>
+                  <p><input type="text" style="font-size: 18px;" id="commandInput" placeholder="Try Command Injection here..."></p>
+                  <button class="button is-block is-info is-large is-fullwidth " style="background-color: #504002" onclick="simulateCommandInjection()">Submit</button>
+              </div>
+              <div id="commandOutput"></div>
+          </div>
+      </div>
+  </div>
+    </div>
+
+    <!-- Left Arrow -->
+    <a href="#vulnerabilitiesCarousel" role="button" data-slide="prev" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: 40px; color: rgba(255, 255, 255, 0.842); text-decoration: none;">
+      &#10096; <!-- Left Arrow Character -->
+    </a>
+
+    <!-- Right Arrow -->
+    <a href="#vulnerabilitiesCarousel" role="button" data-slide="next" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); font-size: 40px; color: rgb(255, 255, 255); text-decoration: none;">
+      &#10097; <!-- Right Arrow Character -->
+    </a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script> 
+    function simulateXSS() { 
+        var userInput = document.getElementById('userInput').value;
+        var outputDiv = document.getElementById('output');
+        outputDiv.innerHTML = userInput;
+        var scriptTags = outputDiv.getElementsByTagName("script");
+        for (var i = 0; i < scriptTags.length; i++) {
+            eval(scriptTags[i].innerText);
+        }
+    }
+
+    function simulateSQLInjection() {
+        var userInput = document.getElementById('sqlInput').value;
+        var outputDiv = document.getElementById('sqlOutput');
+
+        if (userInput === "'") {
+        outputDiv.innerHTML = "Server doesn't like this character. Chanches are SQL injection is possible.";
+        } 
+        else if (userInput === "admin' --") {
+        outputDiv.innerHTML = "SQL injection detected :D";
+        } 
+        else if (userInput === "' OR 1=1 --") {
+          outputDiv.innerHTML = "SQL injection detected :D";
+        }
+        else if (userInput === "' OR '1'='1' --") {
+          outputDiv.innerHTML = "SQL injection detected :D";
+        } 
+        else {
+        outputDiv.innerHTML = "No SQL Injections detected.";
+        }
+    }
+
+    function simulateCommandInjection() {
+        var userInput = document.getElementById('commandInput').value;
+        var outputDiv = document.getElementById('commandOutput');
+
+        if (userInput === "; ls" || userInput === ";ls") {
+            outputDiv.innerHTML = "auth.py  __init__.py  main.py  models.py  __pycache__  templates";
+        }
+        else if (userInput === "; whoami" || userInput === ";whoami") {
+            outputDiv.innerHTML = "www-data";
+        } 
+        else if (userInput === "; id" || userInput === ";id") {
+            outputDiv.innerHTML = "uid=33(www-data) gid=33(www-data) groups=33(www-data)";
+        } 
+        else {
+            outputDiv.innerHTML = "No command injection detected.";
+        }
+    }
+</script>
+
+</body>
+</html>
+{% endblock %}
