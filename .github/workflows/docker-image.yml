@@ -58,10 +58,11 @@ jobs:
     
       - name: Deploy to Docker host
         run: |
-          ssh -i ~/.ssh/id_rsa root@165.227.166.229 "docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ci-cd-automation-pipeline:latest && \
-                                      docker stop ci-cd-automation-pipeline || true && \
-                                      docker rm ci-cd-automation-pipeline || true && \
-                                      docker run -d --name ci-cd-automation-pipeline -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/ci-cd-automation-pipeline:latest"
+          IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/ci-cd-automation-pipeline:latest"
+          ssh -i ~/.ssh/id_rsa root@165.227.166.229 "docker pull $IMAGE && \
+                                                    docker stop ci-cd-automation-pipeline || true && \
+                                                    docker rm ci-cd-automation-pipeline || true && \
+                                                    docker run -d --name ci-cd-automation-pipeline -p 80:80 $IMAGE"
 
 
       
