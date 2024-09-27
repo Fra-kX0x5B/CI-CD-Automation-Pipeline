@@ -42,7 +42,7 @@ jobs:
           file: CI-CD-Automation-Pipeline/Dockerfile
 
       - name: Run Trivy scan
-        uses: aquasecurity/trivy-action@v0.4.0
+        uses: aquasecurity/trivy-action@v0.20.0
         with:
           image-ref: ${{ vars.DOCKERHUB_USERNAME }}/ci-cd-automation-pipeline:latest
           severity: HIGH,CRITICAL
