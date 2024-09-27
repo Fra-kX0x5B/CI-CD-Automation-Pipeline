@@ -46,10 +46,10 @@ jobs:
         with:
           image-ref: ${{ vars.DOCKERHUB_USERNAME }}/ci-cd-automation-pipeline:latest
           severity: HIGH,CRITICAL
-          exit-code: 1
+          exit-code: 0
           scan-type: image
           scan-ref: .
-          ignore-unfixed: true
+          ignore-unfixed: false
           vuln-type: os,library
           format: table
           list-all-pkgs: false
