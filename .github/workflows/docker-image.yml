@@ -59,7 +59,8 @@ jobs:
       - name: Deploy to Docker host
         run: |
           IMAGE="${{ vars.DOCKERHUB_USERNAME }}/ci-cd-automation-pipeline:latest"
-          ssh -i ~/.ssh/id_rsa root@164.92.254.239 "docker stop ci-cd-automation-pipeline || true && \
+          ssh -i ~/.ssh/id_rsa root@164.92.254.239 "apt install docker.io -y || true && \
+                                                    docker stop ci-cd-automation-pipeline || true && \
                                                     docker rm ci-cd-automation-pipeline || true && \
                                                     docker pull $IMAGE || true && \
                                                     docker run -d --name ci-cd-automation-pipeline -p 80:80 $IMAGE"
