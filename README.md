@@ -13,7 +13,7 @@ Tecnologie utilizzate:
 
 L'app è disponibile al seguente indirizzo:
 
-    http://164.92.254.239/
+    http://164.90.163.103/
 
     
 
