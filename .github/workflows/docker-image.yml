@@ -42,6 +42,10 @@ jobs:
           context: CI-CD-Automation-Pipeline
           file: CI-CD-Automation-Pipeline/Dockerfile
 
+      - name: Install Trivy
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+
       - name: Set up Trivy cache
         run: |
           export TRIVY_CACHE_DIR=.trivy_cache
