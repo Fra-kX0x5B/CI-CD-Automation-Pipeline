@@ -1,3 +1,4 @@
+# CI-CD-Automation-Pipeline
 Developing an automated CI/CD pipeline for a containerized Flask application.
 
 Technologies used:
@@ -42,7 +43,7 @@ Monitoring:
 
 Everything is automated from start to finish, triggered by each push to the repository. The app is fully functional and accessible from any browser (not optimized for mobile) at the specified IP address.
 
--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
 
 # CI-CD-Automation-Pipeline
 Developing an automated CI/CD pipeline for a containerized Flask application.
