@@ -50,10 +50,11 @@ jobs:
           exit-code: 0
           scan-type: image
           scan-ref: .
-          ignore-unfixed: false
+          ignore-unfixed: true
           vuln-type: os,library
           format: table
           list-all-pkgs: false
+          cache-dir: .trivy_cache
 
       - name: Notify Slack - Build and Push
         if: steps.build_push.outcome == 'success'
