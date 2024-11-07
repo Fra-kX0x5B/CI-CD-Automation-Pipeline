@@ -46,10 +46,12 @@ jobs:
         run: |
           curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
 
-      - name: Set up Trivy cache
+      - name: Initialize Trivy cache
+        env:
+          TRIVY_CACHE_DIR: .trivy_cache
         run: |
-          export TRIVY_CACHE_DIR=.trivy_cache
-          trivy --download-db-only
+          mkdir -p .trivy_cache
+          trivy image --download-db-only alpine:3.14 || true
 
       - name: Run Trivy scan
         uses: aquasecurity/trivy-action@0.20.0
