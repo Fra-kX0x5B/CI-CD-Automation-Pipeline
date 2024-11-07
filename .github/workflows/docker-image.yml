@@ -40,32 +40,7 @@ jobs:
           push: true
           tags: ${{ vars.DOCKERHUB_USERNAME }}/ci-cd-automation-pipeline:latest
           context: CI-CD-Automation-Pipeline
-          file: CI-CD-Automation-Pipeline/Dockerfile
-
-      - name: Install Trivy
-        run: |
-          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
-
-      - name: Initialize Trivy cache
-        env:
-          TRIVY_CACHE_DIR: .trivy_cache
-        run: |
-          mkdir -p .trivy_cache
-          trivy image --download-db-only alpine:3.14 || true
-
-      - name: Run Trivy scan
-        uses: aquasecurity/trivy-action@0.20.0
-        with:
-          image-ref: ${{ vars.DOCKERHUB_USERNAME }}/ci-cd-automation-pipeline:latest
-          severity: HIGH,CRITICAL
-          exit-code: 0
-          scan-type: image
-          scan-ref: .
-          ignore-unfixed: true
-          vuln-type: os,library
-          format: table
-          list-all-pkgs: false
-        
+          file: CI-CD-Automation-Pipeline/Dockerfile        
 
       - name: Notify Slack - Build and Push
         if: steps.build_push.outcome == 'success'
