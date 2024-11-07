@@ -11,10 +11,6 @@ Tecnologie utilizzate:
     Monitoraggio:              Slack
     Server VPS:                Digital Ocean
 
-L'app è disponibile al seguente indirizzo:
-
-    http://164.90.163.103/
-
     
 
   Sviluppo:
