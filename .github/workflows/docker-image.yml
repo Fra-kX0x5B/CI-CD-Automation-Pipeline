@@ -42,6 +42,11 @@ jobs:
           context: CI-CD-Automation-Pipeline
           file: CI-CD-Automation-Pipeline/Dockerfile
 
+      - name: Set up Trivy cache
+        run: |
+          export TRIVY_CACHE_DIR=.trivy_cache
+          trivy --download-db-only
+
       - name: Run Trivy scan
         uses: aquasecurity/trivy-action@0.20.0
         with:
@@ -54,7 +59,7 @@ jobs:
           vuln-type: os,library
           format: table
           list-all-pkgs: false
-          cache-dir: .trivy_cache
+        
 
       - name: Notify Slack - Build and Push
         if: steps.build_push.outcome == 'success'
